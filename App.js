@@ -1,10 +1,53 @@
-import { useCallback, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { NativeBaseProvider, Box } from "native-base";
+import { useCallback, useEffect,useState  } from 'react';
+import { NativeBaseProvider,extendTheme } from "native-base";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+import Main from "./components/Main";
+import CustomSplashScreen from './components/SplashScreen';
+
 export default function App() {
+
+  //native base config and theme
+  const theme = extendTheme({
+    colors: {
+      // Add new color
+      ligthmode: {
+        bg: '#ffffff',
+        accent: '#0E7490',
+        text: "#000",
+        btnText: '#fff',
+        input: "#7dc0ff",
+        darkBlue: "#0E7490",
+        red:"#CC3304"
+      },
+      //dark blue 50
+      darkmode: {
+        bg: '#000000',
+        accent: '#FFC80F',
+        text: "#fff",
+        btnText: "#000"
+      }
+    }
+  });
+
+  const config = {
+    dependencies: {
+      initialColorMode: 'dark'
+    }
+  };
+  
+
+  //splash screen time 
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000); // 5000 ms = 5 seconds
+  }, []);
+
+
+  //google fonts
   const [fontsLoaded] = useFonts({
     'YsabeauSC-Regular': require('./assets/fonts/YsabeauSC-Regular.ttf'),
   });
@@ -23,21 +66,17 @@ export default function App() {
     return null;
   }
 
+  
+
+  
+
   return (
     <NativeBaseProvider>
-      <View style={styles.container}>
-        <Box _text={{ fontFamily: 'YsabeauSC-Regular', fontSize: "2xl", color: "emerald.500" }}>Car Store</Box>
-        <Text style={{ fontSize: 30 }}>Platform Default</Text>
-      </View>
+      {
+        loading ? <CustomSplashScreen/>:<Main/>
+      }
     </NativeBaseProvider>
 
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
