@@ -1,17 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { NativeBaseProvider, Box } from "native-base";
+import { useFonts } from 'expo-font';
 
-export default function App() {
+
+const App = () => {
+  const [fontsLoaded] = useFonts({
+    'YsabeauSC-Regular': require('./assets/fonts/YsabeauSC-Regular.ttf'),
+  });
+  const [fontReady, setFontReady] = useState(false);
+
+  useEffect(() => {
+    if (!fontsLoaded) {
+      setFontReady(true);
+    }
+  },[]);
+  
+
   return (
     <NativeBaseProvider>
       <View style={styles.container}>
-      <Text>Electricar</Text>
-      <Box _text={{fontSize:"2xl", color:"emerald.500"}}>Hello world</Box>
+        {
+          !fontReady ? (
+
+            <Text>Cargando</Text>
+
+          ) : (
+            <Box _text={{ fontFamily: 'YsabeauSC-Regular', fontSize: "2xl", color: "emerald.500" }}>Car Store</Box>
+          )
+        }
+      </View>
       <StatusBar style="auto" />
-    </View>
-      
+
     </NativeBaseProvider>
   );
 }
@@ -25,3 +46,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
