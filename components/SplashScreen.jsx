@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Image, Animated,Text } from 'react-native';
-import {Box} from "native-base";
+import { StyleSheet, View, Animated,Text } from 'react-native';
 import iconStore from '../assets/images/icon-store512.png';
 
 const SplashScreen = () => {
@@ -24,7 +23,7 @@ const SplashScreen = () => {
   return (
     <View style={styles.container}>
       <Animated.Image source={iconStore} style={[styles.logo, { transform: [{ rotate: interpolateRotation }] }]} />
-      <Box _text={{fontFamily:'YsabeauSC-Regular', fontSize: "2xl", color: "emerald.500" }}>Car Store</Box>
+      <Text style={{ fontFamily:'YsabeauSC-Regular',fontSize: 30 }}>Car Store</Text>
     </View>
   );
 };
