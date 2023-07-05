@@ -15,4 +15,5 @@ Para tener en ejecucion web y android. ejecutar npx expo start. Selecciona prime
 ## expo install react-native-svg@12.1.1
 ## expo install react-native-safe-area-context@3.3.2
 --> Expo fonts
+## npm install expo-splash-screen
 ## npx expo install expo-font

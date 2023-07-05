@@ -1,50 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect,useState } from "react";
+import { useCallback, useEffect } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import { NativeBaseProvider, Box } from "native-base";
 import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
-
-const App = () => {
+export default function App() {
   const [fontsLoaded] = useFonts({
     'YsabeauSC-Regular': require('./assets/fonts/YsabeauSC-Regular.ttf'),
   });
-  const [fontReady, setFontReady] = useState(false);
+
+  const onFontsLoaded = useCallback(async () => {
+    await SplashScreen.hideAsync();
+  }, []);
 
   useEffect(() => {
-    if (!fontsLoaded) {
-      setFontReady(true);
+    if (fontsLoaded) {
+      onFontsLoaded();
     }
-  },[]);
-  
+  }, [fontsLoaded, onFontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NativeBaseProvider>
       <View style={styles.container}>
-        {
-          !fontReady ? (
-
-            <Text>Cargando</Text>
-
-          ) : (
-            <Box _text={{ fontFamily: 'YsabeauSC-Regular', fontSize: "2xl", color: "emerald.500" }}>Car Store</Box>
-          )
-        }
+        <Box _text={{ fontFamily: 'YsabeauSC-Regular', fontSize: "2xl", color: "emerald.500" }}>Car Store</Box>
+        <Text style={{ fontSize: 30 }}>Platform Default</Text>
       </View>
-      <StatusBar style="auto" />
-
     </NativeBaseProvider>
+
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
-
-export default App;
