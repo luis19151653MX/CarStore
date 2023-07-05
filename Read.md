@@ -7,3 +7,9 @@
 **Ejecutar en web y en android** 
 ## npx expo start
 Para tener en ejecucion web y android. ejecutar npx expo start. Selecciona primero web (w)y despues android(a). esto sin detener el servidor
+
+
+**Dependencias**
+## npm install native-base
+## expo install react-native-svg@12.1.1
+## expo install react-native-safe-area-context@3.3.2
