@@ -1,5 +1,6 @@
 import { useCallback, useEffect,useState  } from 'react';
 import { NativeBaseProvider,extendTheme } from "native-base";
+import { ContextProvider } from './assets/context/AppContext';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -66,15 +67,13 @@ export default function App() {
     return null;
   }
 
-  
-
-  
-
   return (
     <NativeBaseProvider>
-      {
+      <ContextProvider>
+        {
         loading ? <CustomSplashScreen/>:<Main/>
       }
+      </ContextProvider>
     </NativeBaseProvider>
 
   );
