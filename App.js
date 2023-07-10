@@ -1,6 +1,6 @@
 import { useCallback, useEffect,useState  } from 'react';
 import { NativeBaseProvider,extendTheme } from "native-base";
-import { ContextProvider } from './assets/context/AppContext';
+import { ContextProvider } from './context/AppContext';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 

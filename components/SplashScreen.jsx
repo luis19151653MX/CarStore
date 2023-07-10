@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View, Animated,Text } from 'react-native';
-import { AppContext } from '../assets/context/AppContext';
+import { AppContext } from '../context/AppContext';
 import iconStore from '../assets/images/icon-store512.png';
 
 const SplashScreen = () => {
