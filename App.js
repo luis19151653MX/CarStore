@@ -4,8 +4,8 @@ import { ContextProvider } from './context/AppContext';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-import Main from "./components/Main";
-import CustomSplashScreen from './components/SplashScreen';
+import Main from "./components/MainNavigation";
+import CustomSplashScreen from './components/sharecomponents/SplashScreen';
 
 export default function App() {
 
@@ -68,7 +68,7 @@ export default function App() {
   }
 
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={theme} config={config} >
       <ContextProvider>
         {
         loading ? <CustomSplashScreen/>:<Main/>

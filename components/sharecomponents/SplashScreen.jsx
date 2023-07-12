@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View, Animated,Text } from 'react-native';
-import { AppContext } from '../context/AppContext';
-import iconStore from '../assets/images/icon-store512.png';
+import { MyContext } from '../../context/AppContext';
+import iconStore from '../../assets/images/icon-store512.png';
 
 const SplashScreen = () => {
   const animatedValue = new Animated.Value(0);
-  const {appName}=useContext(AppContext);
+  const {appName}=useContext(MyContext);
 
   useEffect(() => {
     Animated.loop(
