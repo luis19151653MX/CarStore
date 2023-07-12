@@ -1,5 +1,6 @@
+import { useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useColorModeValue, Image, Box, Center, Text } from "native-base";
+import { useColorModeValue, Image, Box, Center } from "native-base";
 
 import { MyContext } from "../../context/AppContext";
 import { DrawerContentScrollView, DrawerItem, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
@@ -18,6 +19,7 @@ import ShoppingCar from "./ShoppingCar";
 import logoBlue from '../../assets/images/icon-store64.png';
 
 import { Dimensions } from 'react-native';
+
 export default function Navigation() {
     const Drawer = createDrawerNavigator();
     const { userId, setUserId } = useContext(MyContext);

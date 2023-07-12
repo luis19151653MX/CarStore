@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { MyContext } from '../../context/AppContext';
+import { useColorModeValue } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
