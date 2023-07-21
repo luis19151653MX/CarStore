@@ -25,6 +25,9 @@ Para tener en ejecucion web y android. ejecutar npx expo start. Selecciona prime
 --> React navigation
 ## npm install @react-navigation/native
 ## npx expo install react-native-gesture-handler react-native-reanimated
+
+-->Firebase real time
+## npm install firebase
 **opcionales en caso de error de navegacion:**
 npm add react-native-reanimated
 agregar  a babel config: plugins: ['react-native-reanimated/plugin'],
