@@ -44,7 +44,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000); // 5000 ms = 5 seconds
+    }, 30); // 5000 ms = 5 seconds
   }, []);
 
 
