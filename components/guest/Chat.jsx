@@ -1,54 +1,44 @@
-import React, { useEffect,useState } from 'react';
-import { StyleSheet, View,Text,FlatList, TextInput} from 'react-native';
-import { Pusher, PusherEvent } from '@pusher/pusher-websocket-react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, FlatList, TextInput } from 'react-native';
+import dbRealtime from '../../firebase/firebase';
 
-const pusher = Pusher.getInstance();
 const Chat = () => {
-    const [username, setUsername] = useState('username');
-    const [messages, setMessages] = useState([]);
-    const [message, setMessage] = useState('');
-    let allMessages = [];
+  const [username, setUsername] = useState('username');
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState([]);
 
-    useEffect(() => {
-        const initPusher = async () => {
-          await pusher.init({
-            apiKey: "deaf374f1a1f96ddfe30",
-            cluster: "us2",
-          });
-    
-          await pusher.connect();
-          await pusher.subscribe({
-            channelName: "chat", // Cambiar a tu nombre de canal
-            onEvent: (event) => {
-              console.log(`Event received: ${event}`);
-              // Manejar el mensaje recibido aquí y actualizar el estado de los mensajes
-              setMessages((prevMessages) => [...prevMessages, event]);
-            },
-          });
-        };
-    
-        initPusher();
-      }, []);
-    
-      const submit = (e) => {
-        e.preventDefault();
-        // Tu lógica para enviar el mensaje va aquí
-        // Por ejemplo, podrías agregar el mensaje al array de mensajes
-        setMessages([...messages, { username, message }]);
-        // Limpiar el campo de mensaje después de enviar
-        setMessage('');
-      };
-    
-      const renderItem = ({ item }) => (
-        <View style={{ paddingVertical: 10 }}>
-          <Text style={{ fontWeight: 'bold' }}>{item.username}</Text>
-          <Text style={{ marginBottom: 5, fontSize: 12 }}>{item.message}</Text>
-        </View>
-      );
+  useEffect(() => {
+    const databaseRef = dbRealtime.ref('messages');
+    databaseRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      const messageArray = data ? Object.values(data) : [];
+      setMessages(messageArray);
+    });
+
+    return () => {
+      databaseRef.off();
+    };
+  }, []);
+
+  const submit = (e) => {
+    e.preventDefault();
+    dbRealtime.ref('messages').push({
+      username,
+      message,
+    });
+    setMessage('');
+  };
+
+  const renderItem = ({ item }) => (
+    <View style={{ paddingVertical: 10 }}>
+      <Text style={{ fontWeight: 'bold' }}>{item.username}</Text>
+      <Text style={{ marginBottom: 5, fontSize: 12 }}>{item.message}</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <Text  style={{ fontFamily:'YsabeauSC-Regular',fontSize: 30,color:"#fff" }}>Chat v1</Text>
+      <Text style={{ fontFamily: 'YsabeauSC-Regular', fontSize: 30, color: '#fff' }}>Chat v1</Text>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, borderBottomWidth: 1 }}>
         <TextInput
           style={{ flex: 1, fontSize: 18, fontWeight: 'bold' }}
@@ -83,10 +73,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logo: {
-    width: 300,
-    height: 300,
-  }
 });
 
 export default Chat;
